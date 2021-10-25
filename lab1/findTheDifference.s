@@ -1,7 +1,7 @@
 .data
 arr1: .word 97, 101			# s[2] = {a, e}
 arr2: .word 97, 101, 97		# t[3] = {a, e, a}
-str:  .string "the added letter is"
+str:  .string "the added letter is  "
 
 .text
 #s0 = arr1 base address
@@ -22,19 +22,21 @@ main:
 		add s6, x0, x0
 		add t0, x0, x0
 		jal ra, loop1
-		sw x0, t0
+		add t0, x0, x0
 		jal ra, loop2
 		j end
 		
 
 loop1:
-		add s5, s5, s0
+		lw s4, 0(s0)
+		add s5, s5, s4
 		addi s0, s0, 4
 		addi t0, t0, 1
 		blt t0, s2, loop1
 		ret	
 loop2:
-		add s6, s6, s1
+		lw s4, 0(s1)
+		add s6, s6, s4
 		addi s1, s1, 4
 		addi t0, t0, 1
 		blt t0, s3, loop2
